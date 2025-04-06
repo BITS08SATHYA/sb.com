@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -18,9 +21,9 @@ public class ProductController {
     private final ProductService service;
 
     @PostMapping("/admin/categories/{categoryId}/product")
-    public ResponseEntity<ProductDTO> addProduct(@RequestBody Product product,
+    public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productDTO,
                                                  @PathVariable Long categoryId){
-        ProductDTO productDTO = service.addProduct(categoryId, product);
+        ProductDTO savedproductDTO = service.addProduct(categoryId, productDTO);
         return new ResponseEntity<>(productDTO, HttpStatus.CREATED);
     }
 
@@ -43,9 +46,9 @@ public class ProductController {
     }
 
     @PutMapping("/admin/products/{productId}")
-    public ResponseEntity<ProductDTO> updateProdcut(@RequestBody Product product,
+    public ResponseEntity<ProductDTO> updateProdcut(@RequestBody ProductDTO productDTO,
                                                     @PathVariable Long productId){
-        ProductDTO updatedProductDTO = service.updateProduct(productId, product);
+        ProductDTO updatedProductDTO = service.updateProduct(productId, productDTO);
         return new ResponseEntity<>(updatedProductDTO, HttpStatus.OK);
     }
 
@@ -55,5 +58,12 @@ public class ProductController {
         ProductDTO deleteProductDTO = service.deleteProduct(productId);
         return new ResponseEntity<>(deleteProductDTO, HttpStatus.OK);
 
+    }
+
+    @PutMapping("/products/{productId}/image")
+    public ResponseEntity<ProductDTO> updateProductImage(@PathVariable Long productId,
+                                                         @RequestParam("image") MultipartFile image ) throws IOException {
+        ProductDTO updatedProduct = service.updateProductImage(productId, image);
+        return new ResponseEntity<>( updatedProduct , HttpStatus.OK);
     }
 }
