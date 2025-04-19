@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter@Setter@ToString
-public class UserServiceImpl implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserServiceImpl(Long id, String username, String email, String password,
+    public UserDetailsImpl(Long id, String username, String email, String password,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
@@ -41,12 +41,12 @@ public class UserServiceImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserServiceImpl build(User user) {
+    public static UserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRoleName().name()))
                 .collect(Collectors.toUnmodifiableList());
 
-        return new UserServiceImpl(
+        return new UserDetailsImpl(
                 user.getId(),
                 user.getUserName(),
                 user.getEmail(),
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserDetails {
         if(o == null || getClass() != o.getClass())
             return false;
 
-        UserServiceImpl user = (UserServiceImpl) o;
+        UserDetailsImpl user = (UserDetailsImpl) o;
         return Objects.equals(id, user.id);
     }
 
