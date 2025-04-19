@@ -52,9 +52,6 @@ public class User {
         this.password = password;
     }
 
-
-
-
     @Setter
     @Getter
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
