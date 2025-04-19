@@ -13,11 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 public class LoginResponse {
 
+    private Long id;
     private String jwtToken;
     private String username;
     private List<String> roles;
 
-//    public LoginResponse(String jwtToken, String username, List<String> roles) {
+
+    //    public LoginResponse(String jwtToken, String username, List<String> roles) {
 //
 //        this.username = username;
 //        this.roles = roles;
