@@ -26,12 +26,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -130,6 +128,28 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User Registered successfully!"));
+    }
+
+    @GetMapping("/username")
+    public String currentUserName(Authentication authentication){
+        if(authentication != null){
+            return authentication.getName();
+        }else{
+            return "";
+        }
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<LoginResponse> getUserDetails(Authentication authentication){
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .toList();
+
+        LoginResponse response = new LoginResponse(userDetails.getId(),userDetails.getUsername(), roles);
+
+        return ResponseEntity.ok().body(response);
     }
 
 }
