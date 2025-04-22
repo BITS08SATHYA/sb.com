@@ -4,6 +4,7 @@ import com.ecommerce.project.model.AppRole;
 import com.ecommerce.project.model.Role;
 import com.ecommerce.project.model.User;
 import com.ecommerce.project.payload.MessageResponse;
+import com.ecommerce.project.repository.RoleRepository;
 import com.ecommerce.project.repository.UserRepository;
 import com.ecommerce.project.security.jwt.JwtUtils;
 import com.ecommerce.project.security.jwt.LoginRequest;
@@ -25,12 +26,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired
