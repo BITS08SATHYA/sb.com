@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.util.WebUtils;
 
 import javax.crypto.SecretKey;
@@ -54,6 +55,13 @@ public class JwtUtils {
             }else{
                 return null;
             }
+        }
+
+        public ResponseCookie getCleanJwtCookie(){
+            ResponseCookie cookie = ResponseCookie.from(jwtCookieName, null)
+                    .path("/api")
+                    .build();
+            return cookie;
         }
 
         public ResponseCookie generateJwtCookie(UserDetailsImpl userPrinicipal) {
@@ -102,4 +110,7 @@ public class JwtUtils {
             }
             return false;
         }
+
+
+
 }

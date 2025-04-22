@@ -11,6 +11,7 @@ import com.ecommerce.project.security.jwt.LoginRequest;
 import com.ecommerce.project.security.jwt.LoginResponse;
 import com.ecommerce.project.security.jwt.SignupRequest;
 import com.ecommerce.project.security.services.UserDetailsImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,6 +151,13 @@ public class AuthController {
         LoginResponse response = new LoginResponse(userDetails.getId(),userDetails.getUsername(), roles);
 
         return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/signout")
+    public ResponseEntity<?> signout(HttpServletRequest request) {
+        ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .body(new MessageResponse("You've been signed out"));
     }
 
 }
