@@ -10,8 +10,10 @@ import com.ecommerce.project.repository.CategoryRepository;
 import com.ecommerce.project.repository.ProductRepository;
 import com.ecommerce.project.service.FileService;
 import com.ecommerce.project.service.ProductService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,8 +32,12 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
-    private ModelMapper modelMapper;
+    @Autowired
+    private final ModelMapper modelMapper;
+    @Autowired
     private FileService fileService;
+
+
 
     @Value("${project.image}")
     private String path;

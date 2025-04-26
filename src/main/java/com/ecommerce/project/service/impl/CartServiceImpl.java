@@ -11,6 +11,7 @@ import com.ecommerce.project.repository.CartItemRepository;
 import com.ecommerce.project.repository.CartRepository;
 import com.ecommerce.project.repository.ProductRepository;
 import com.ecommerce.project.service.CartService;
+import com.ecommerce.project.util.AuthUtil;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SecondaryRow;
@@ -96,7 +97,7 @@ public class CartServiceImpl implements CartService {
 
     private Cart createCart() {
 
-        Cart userCart = cartRepository.findCartByEmail((authUtil.loggedInEmail());
+        Cart userCart = cartRepository.findCartByEmail((authUtil.loggedInEmail()));
         if(userCart != null){
             return userCart;
         }
