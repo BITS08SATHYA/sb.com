@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    private Long nextId = 1L;
+//    private Long nextId = 1L;
 //    private List<Category> categories = new ArrayList<>();
 
     @Autowired
