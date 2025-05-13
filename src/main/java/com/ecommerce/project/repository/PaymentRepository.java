@@ -8,6 +8,4 @@ import org.springframework.stereotype.Repository;
 public class PaymentRepository extends JpaRepository<Payment, Long> {
 
 
-
-
 }
