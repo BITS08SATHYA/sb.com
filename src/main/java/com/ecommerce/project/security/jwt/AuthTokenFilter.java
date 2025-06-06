@@ -33,6 +33,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         logger.debug("AuthTokenFilter called for URI: {} " , request.getRequestURI() );
         try{
+//|| uri.startsWith("/api/auth/")
+//            String uri = request.getRequestURI();
+//            if (uri.startsWith("/api/public/") ) {
+//                filterChain.doFilter(request, response);
+//                return;
+//            }
+
             String jwt = parseJwt(request);
 
             if( jwt != null & jwtUtils.validateJwtToken(jwt)){
@@ -57,6 +64,17 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     }
 
     private String parseJwt(HttpServletRequest request){
+
+//        String headerAuth = request.getHeader("Authorization");
+//
+//        if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
+//            return headerAuth.substring(7);
+//        }
+//
+//        // 2. If no header, check cookies
+//        return jwtUtils.getJwtFromCookies(request);
+
+
         String jwt = jwtUtils.getJwtFromCookies(request);
         logger.debug("AuthTokenFilter.java: {} ", jwt);
         return jwt;
