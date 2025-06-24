@@ -1,1 +1,0 @@
-# Developing E-Commerce application using Spring Boot
